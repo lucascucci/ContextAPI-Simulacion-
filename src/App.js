@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "./components/Nabvar";
+import MovieList from "./components/MovieList";
+import UserContext from "./context/UserContext";
+import React, { useState } from "react";
+
+
+const initialUser = null;
 
 function App() {
+  const [user, setUser] = useState(initialUser); // las funciones de login y logout harian una peticion a la api.
+
+  const login = () => {
+    setUser(initialUser);
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  const data = { user, login, logout };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <UserContext.Provider value={data}>
+        <Navbar />
+        <MovieList />
+      </UserContext.Provider>
     </div>
   );
 }
